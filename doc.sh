@@ -1,13 +1,16 @@
 #!/bin/sh
 #
+# from: https://github.com/bittorf/markdown-documentation-to-pdf
+#
+# see:
 # https://vijual.de/2019/03/11/artikel-mit-markdown-und-pandoc-schreiben/
 # apt-get -y install pandoc texlive-fonts-extra texlive-luatex texlive-lang-german
 
-for FILE in $1 *.md; do break; done
-[ -f "$FILE" ] || exit
+for FILE in $1 *.md; do break; done	# get first
+[ -f "$FILE" ] || exit 1
 
-TITLE="$( basename -- "$FILE" )"
-TITLE="${FILE%.*}"
+TITLE="$( basename -- "$FILE" )"	# e.g. doc.md
+TITLE="${FILE%.*}"			# e.g. doc
 
 PANDOC_LANG='de-DE'
 FILE_UNIXTIME="$( date +%s -r "$TITLE.md" )"

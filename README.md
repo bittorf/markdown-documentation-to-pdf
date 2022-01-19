@@ -10,9 +10,9 @@ apt-get -y texlive-lang-german
 
 # Run
 
-Write your ```some-name-doc.md``` and  
-execute in the same folder ```./doc.sh```.  
-Maybe adjust the ```PANDOC_LANG```.  
+Write your ```some-name-doc.md``` and   
+execute in the same folder ```./doc.sh``` and  
+maybe adjust the variable ```PANDOC_LANG```.  
 
 Ship a nice PDF.  
 

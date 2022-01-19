@@ -9,7 +9,7 @@ and also the how and
 maybe a short goal.  
 
 Each subtopic in a  
-short paragraph.  
+short paragraph maybe with a [helpful Link](https://en.wikipedia.org/wiki/Markdown).  
 
 Maybe some bullet points:
 

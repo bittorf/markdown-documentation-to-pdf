@@ -13,7 +13,7 @@ short paragraph maybe with a [helpful Link](https://en.wikipedia.org/wiki/Markdo
 
 Maybe some bullet points:
 
-* task 1
+* task 1 with an inline link <https://google.com>
 * task 2
 * task A
 

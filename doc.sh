@@ -12,6 +12,18 @@ for FILE in $1 *.md; do break; done	# get first
 TITLE="$( basename -- "$FILE" )"	# e.g. doc.md
 TITLE="${FILE%.*}"			# e.g. doc
 
+for INCLUDE in *.md.include; do {
+	[ -f "$INCLUDE" ] && {
+		[ -f "$TMPFILE" ] || {
+			TMPFILE="$( mktemp --suffix=.md )" || exit 1
+			cp "$FILE" "$TMPFILE" && FILE="$TMPFILE"
+		}
+
+		sed -i "/^include_file @${INCLUDE}$/r $INCLUDE" "$FILE"
+		sed -i "/^include_file @${INCLUDE}$/d" "$FILE"
+	}
+} done
+
 PANDOC_LANG='de-DE'
 FILE_UNIXTIME="$( date +%s -r "$TITLE.md" )"
 FILE_DATE="$( date -d @$FILE_UNIXTIME "+%d-%m-%Y" )"
@@ -35,10 +47,11 @@ pandoc \
   -V hyphens=URL \
   -V lang="${PANDOC_LANG}" \
   -V toc \
-  -V lof \
-  -V lot \
   -V date="${FILE_DATE}" \
   -V links-as-notes \
   -V documentclass="report" \
-  -f markdown -o "${TITLE}.pdf" "${TITLE}.md" && \
-     printf '%s\n' "[OK] generated '$TITLE.pdf'"
+  -f markdown -o "${TITLE}.pdf" "$FILE" && {
+    test -f "$TMPFILE" && rm -f "$TMPFILE"
+    printf '%s\n' "[OK] generated '$TITLE.pdf'"
+    xdg-open "${TITLE}.pdf"
+}
